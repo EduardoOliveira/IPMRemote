@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.squareup.otto.Produce;
 import pt.iscte.ipm.mediacenter.remote.R;
-import pt.iscte.ipm.mediacenter.remote.services.websocket.events.KeyPressRemoteEvent;
+import pt.iscte.ipm.mediacenter.remote.events.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
 public class MainFragment extends Fragment {
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
     }
 
     @Produce
-    public KeyPressRemoteEvent keyPressed(){
-        return new KeyPressRemoteEvent("bla");
+    public NavigationEvent keyPressed(){
+        return new NavigationEvent("bla");
     }
 }

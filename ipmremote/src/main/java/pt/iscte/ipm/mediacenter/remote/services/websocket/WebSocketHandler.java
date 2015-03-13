@@ -3,6 +3,8 @@ package pt.iscte.ipm.mediacenter.remote.services.websocket;
 import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.WebSocket;
+import pt.iscte.ipm.mediacenter.remote.events.EventWrapper;
+import pt.iscte.ipm.mediacenter.remote.events.ConnectEvent;
 
 public class WebSocketHandler implements WebSocket.StringCallback, AsyncHttpClient.WebSocketConnectCallback {
     private WebSocket webSocket;
@@ -15,6 +17,7 @@ public class WebSocketHandler implements WebSocket.StringCallback, AsyncHttpClie
         }
         this.webSocket = webSocket;
         webSocket.setStringCallback(this);
+        webSocket.send(String.valueOf(new EventWrapper(new ConnectEvent("Android1"))));
     }
 
     @Override

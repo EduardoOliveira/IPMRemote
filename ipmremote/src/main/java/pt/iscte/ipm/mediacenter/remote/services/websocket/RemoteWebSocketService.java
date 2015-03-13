@@ -5,24 +5,22 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.squareup.otto.Subscribe;
-import pt.iscte.ipm.mediacenter.remote.services.websocket.events.EventWrapper;
-import pt.iscte.ipm.mediacenter.remote.services.websocket.events.RemoteEvent;
+import pt.iscte.ipm.mediacenter.remote.events.EventWrapper;
+import pt.iscte.ipm.mediacenter.remote.events.Event;
+import pt.iscte.ipm.mediacenter.remote.events.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
 public class RemoteWebSocketService extends Service {
-    private int bla = 0;
     private final IBinder localBinder = new LocalBinder();
-    public static final String TAG = "Service";
     private WebSocketHandler webSocketHandler = new WebSocketHandler();
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d("service", "start");
-        AsyncHttpClient.getDefaultInstance().websocket("ws://172.17.8.52/remote", null, webSocketHandler);
+        AsyncHttpClient.getDefaultInstance().websocket("ws://192.168.0.4/websocket", null, webSocketHandler);
         RemoteWebsocketBusProvider.getInstance().register(this);
     }
 
@@ -33,9 +31,9 @@ public class RemoteWebSocketService extends Service {
     }
 
     @Subscribe
-    public void onEvent(RemoteEvent remoteEvent){
+    public void onEvent(Event event){
         Log.d("qwe0","wqewqewqe");
-        sendEvent(new EventWrapper());
+        sendEvent(new NavigationEvent("ewqw"));
     }
 
     @Override
@@ -48,13 +46,8 @@ public class RemoteWebSocketService extends Service {
         return localBinder;
     }
 
-    public void sendEvent(EventWrapper eventWrapper){
-        webSocketHandler.send("{\n" +
-                "\"event_type\":\"pt.iscte.ipm.mediacenter.remote.events.KeyPressRemoteEvent\",\n" +
-                "\"remoteEvent\":{\n" +
-                "\"keyCode\":\"wqeqe\"\n" +
-                "}\n" +
-                "}");
+    public void sendEvent(Event event){
+        webSocketHandler.send(String.valueOf(new EventWrapper(event)));
     }
 
     public class LocalBinder extends Binder{
