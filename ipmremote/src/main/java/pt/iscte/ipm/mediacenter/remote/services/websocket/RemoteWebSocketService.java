@@ -19,7 +19,7 @@ public class RemoteWebSocketService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d("service", "start");
-        AsyncHttpClient.getDefaultInstance().websocket("ws://192.168.0.4/websocket", null, webSocketHandler);
+        AsyncHttpClient.getDefaultInstance().websocket("ws://192.168.1.15/websocket", null, webSocketHandler);
         RemoteWebsocketBusProvider.getInstance().register(this);
     }
 

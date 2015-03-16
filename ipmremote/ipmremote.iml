@@ -91,5 +91,7 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="otto-1.3.6" level="project" />
     <orderEntry type="library" exported="" name="jackson-databind-2.5.1" level="project" />
+    <orderEntry type="module" module-name="IPMMediaCenterSystemEvents" exported="" />
+    <orderEntry type="module" module-name="IPMMediaCenterRemoteEvents" exported="" />
   </component>
 </module>

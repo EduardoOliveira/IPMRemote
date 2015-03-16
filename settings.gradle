@@ -1,1 +1,1 @@
-include ':ipmremote'
+include ':ipmremote', ':IPMMediaCenterSystemEvents', ':IPMMediaCenterRemoteEvents'
