@@ -1,35 +1,34 @@
-package pt.iscte.ipm.mediacenter.remote.events;
+package pt.iscte.ipm.mediacenter.remote.services.websocket;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import pt.iscte.ipm.mediacenter.core.events.Event;
 
 import java.io.IOException;
 
 public class EventWrapper {
 
-
-
-    @JsonProperty("data")
+    private String type;
     private Event event;
 
-    @JsonProperty("event")
-    private String type;
+    public EventWrapper() {
+    }
 
     public EventWrapper(Event event) {
         this.event = event;
-        this.type = event.getEventMasterType();
+        this.type = event.getClass().getCanonicalName();
     }
 
     public Event getEvent() {
         return event;
     }
 
-    @JsonIgnore
+    @JsonProperty("data")
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "event")
     public void setEvent(Event event) {
         this.event = event;
+        this.type = event.getClass().getCanonicalName();
     }
 
     public String getType() {
@@ -39,6 +38,7 @@ public class EventWrapper {
     public void setType(String type) {
         this.type = type;
     }
+
 
     @Override
     public String toString() {

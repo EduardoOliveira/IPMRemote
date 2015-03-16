@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.squareup.otto.Produce;
+import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
-import pt.iscte.ipm.mediacenter.remote.events.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
 public class MainFragment extends Fragment {

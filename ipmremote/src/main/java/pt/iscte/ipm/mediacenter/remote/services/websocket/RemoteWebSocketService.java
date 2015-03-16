@@ -7,9 +7,8 @@ import android.os.IBinder;
 import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.squareup.otto.Subscribe;
-import pt.iscte.ipm.mediacenter.remote.events.EventWrapper;
-import pt.iscte.ipm.mediacenter.remote.events.Event;
-import pt.iscte.ipm.mediacenter.remote.events.NavigationEvent;
+import pt.iscte.ipm.mediacenter.core.events.Event;
+import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
 public class RemoteWebSocketService extends Service {
