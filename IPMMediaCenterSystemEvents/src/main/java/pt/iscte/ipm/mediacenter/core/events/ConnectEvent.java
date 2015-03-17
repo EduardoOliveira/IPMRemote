@@ -4,7 +4,15 @@ public class ConnectEvent extends Event {
     private String deviceType;
     private String deviceName;
 
+    public ConnectEvent() {
+    }
+
     public ConnectEvent(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public ConnectEvent(String deviceType, String deviceName) {
+        this.deviceType = deviceType;
         this.deviceName = deviceName;
     }
 
