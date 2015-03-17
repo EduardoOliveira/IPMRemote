@@ -8,6 +8,8 @@ import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.squareup.otto.Subscribe;
 import pt.iscte.ipm.mediacenter.core.events.Event;
+import pt.iscte.ipm.mediacenter.core.events.EventIncomingWrapper;
+import pt.iscte.ipm.mediacenter.core.events.EventOutgoingWrapper;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
@@ -46,7 +48,7 @@ public class RemoteWebSocketService extends Service {
     }
 
     public void sendEvent(Event event){
-        webSocketHandler.send(String.valueOf(new EventWrapper(event)));
+        webSocketHandler.send(String.valueOf(new EventOutgoingWrapper(event)));
     }
 
     public class LocalBinder extends Binder{

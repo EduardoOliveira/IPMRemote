@@ -3,28 +3,36 @@ package pt.iscte.ipm.mediacenter.events.remote;
 import pt.iscte.ipm.mediacenter.core.events.Event;
 
 public class NavigationEvent extends Event {
-    private String keyCode;
+    private static final String HANDLER = "pt.iscte.ipm.mediacenter.remote.handling.NavigationEventHandler";
+    private String eventCode;
 
     public NavigationEvent() {
+        super(HANDLER);
     }
 
-    public NavigationEvent(String keyCode) {
-        this.keyCode = keyCode;
+    public NavigationEvent(String eventCode) {
+        super(HANDLER);
+        this.eventCode = eventCode;
     }
 
-    public String getKeyCode() {
-        return keyCode;
+    public NavigationEvent(String handler, String eventCode) {
+        super(handler);
+        this.eventCode = eventCode;
     }
 
-    public void setKeyCode(String keyCode) {
-        this.keyCode = keyCode;
+    public String getEventCode() {
+        return eventCode;
+    }
+
+    public void setEventCode(String eventCode) {
+        this.eventCode = eventCode;
     }
 
 
     @Override
     public String toString() {
         return "NavigationEvent{" +
-                "keyCode='" + keyCode + '\'' +
+                "eventCode='" + eventCode + '\'' +
                 '}';
     }
 
