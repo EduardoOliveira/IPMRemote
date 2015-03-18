@@ -10,9 +10,29 @@
             android:text="New Text"
             android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"/>
+            android:text="Left"
+            android:id="@+id/left_button"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Right"
+            android:id="@+id/right_button"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Up"
+            android:id="@+id/up_button"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Down"
+            android:id="@+id/down_button"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/ok_button"/>
 
 </LinearLayout>

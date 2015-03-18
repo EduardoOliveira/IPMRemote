@@ -4,6 +4,9 @@ public abstract class Event {
 
     protected String handler;
 
+    public Event() {
+    }
+
     public Event(String handler) {
         this.handler = handler;
     }

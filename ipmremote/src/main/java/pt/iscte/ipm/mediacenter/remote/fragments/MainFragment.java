@@ -12,21 +12,55 @@ import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
 
+
 public class MainFragment extends Fragment {
 
 
     private View view;
+    private String lastKeyEvent="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_layout, container, false);
-        Button btn = (Button) view.findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button leftButton = (Button) view.findViewById(R.id.left_button);
+        leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("wqe", "wqeqwe");
+                lastKeyEvent = "left";
+                RemoteWebsocketBusProvider.getInstance().post(keyPressed());
+            }
+        });
+        Button rightButton = (Button) view.findViewById(R.id.right_button);
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "right";
+                RemoteWebsocketBusProvider.getInstance().post(keyPressed());
+            }
+        });
+        Button upButton = (Button) view.findViewById(R.id.up_button);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "up";
+                RemoteWebsocketBusProvider.getInstance().post(keyPressed());
+            }
+        });
+        Button downButton = (Button) view.findViewById(R.id.down_button);
+        downButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "down";
+                RemoteWebsocketBusProvider.getInstance().post(keyPressed());
+            }
+        });
+        Button okButton = (Button) view.findViewById(R.id.ok_button);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "ok";
                 RemoteWebsocketBusProvider.getInstance().post(keyPressed());
             }
         });
@@ -48,12 +82,12 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("wqe","qwe");
+        Log.d("wqe", "qwe");
         RemoteWebsocketBusProvider.getInstance().register(this);
     }
 
     @Produce
-    public NavigationEvent keyPressed(){
-        return new NavigationEvent("bla");
+    public NavigationEvent keyPressed() {
+        return new NavigationEvent(lastKeyEvent);
     }
 }

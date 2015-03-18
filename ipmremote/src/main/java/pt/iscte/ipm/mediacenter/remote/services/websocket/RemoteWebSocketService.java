@@ -21,7 +21,7 @@ public class RemoteWebSocketService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d("service", "start");
-        AsyncHttpClient.getDefaultInstance().websocket("ws://192.168.1.15/websocket", null, webSocketHandler);
+        AsyncHttpClient.getDefaultInstance().websocket("ws://172.17.8.52/websocket", null, webSocketHandler);
         RemoteWebsocketBusProvider.getInstance().register(this);
     }
 
@@ -33,8 +33,8 @@ public class RemoteWebSocketService extends Service {
 
     @Subscribe
     public void onEvent(Event event){
-        Log.d("qwe0","wqewqewqe");
-        sendEvent(new NavigationEvent("ewqw"));
+        Log.d("new_event",event.toString());
+        sendEvent(event);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RemoteWebSocketService extends Service {
         return localBinder;
     }
 
-    public void sendEvent(Event event){
+    private void sendEvent(Event event){
         webSocketHandler.send(String.valueOf(new EventOutgoingWrapper(event)));
     }
 
