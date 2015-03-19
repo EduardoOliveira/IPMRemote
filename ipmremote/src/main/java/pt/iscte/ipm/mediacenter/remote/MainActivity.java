@@ -4,15 +4,21 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import pt.iscte.ipm.mediacenter.remote.fragments.MainFragment;
 import pt.iscte.ipm.mediacenter.remote.fragments.PrefsFragment;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.RemoteWebSocketService;
 
 
 public class MainActivity extends ActionBarActivity {
+    private String[] drawerItems;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,11 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, RemoteWebSocketService.class);
         startService(intent);
 
+        //drawerItems = getResources().getStringArray(R.array.drawer_items);
+        //drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //drawerList = (ListView) findViewById(R.id.left_drawer);
+
+        //drawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item,drawerItems));
         // Check whether the activity is using the layout version with
         // the fragment_container FrameLayout. If so, we must add the first fragment
         if (findViewById(R.id.fragment_container) != null) {

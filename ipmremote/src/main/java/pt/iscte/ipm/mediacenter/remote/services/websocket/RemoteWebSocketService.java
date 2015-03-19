@@ -6,36 +6,37 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
+import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
+import pt.iscte.ipm.mediacenter.core.events.ConnectEvent;
 import pt.iscte.ipm.mediacenter.core.events.Event;
-import pt.iscte.ipm.mediacenter.core.events.EventIncomingWrapper;
 import pt.iscte.ipm.mediacenter.core.events.EventOutgoingWrapper;
+import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
-import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.RemoteWebsocketBusProvider;
+import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class RemoteWebSocketService extends Service {
     private final IBinder localBinder = new LocalBinder();
-    private WebSocketHandler webSocketHandler = new WebSocketHandler();
+    private WebSocketHandler webSocketHandler;
+    private Event lastEvent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("service", "start");
-        AsyncHttpClient.getDefaultInstance().websocket("ws://172.17.8.52/websocket", null, webSocketHandler);
-        RemoteWebsocketBusProvider.getInstance().register(this);
+        webSocketHandler = new WebSocketHandler(this);
+        AsyncHttpClient.getDefaultInstance().websocket("ws://192.168.0.4/websocket", null, webSocketHandler);
+        BusProvider.getInstance().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RemoteWebsocketBusProvider.getInstance().unregister(this);
+        BusProvider.getInstance().unregister(this);
     }
 
-    @Subscribe
-    public void onEvent(Event event){
-        Log.d("new_event",event.toString());
-        sendEvent(event);
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -47,13 +48,40 @@ public class RemoteWebSocketService extends Service {
         return localBinder;
     }
 
-    private void sendEvent(Event event){
-        webSocketHandler.send(String.valueOf(new EventOutgoingWrapper(event)));
+    public void handle(Event event) {
+        try {
+            for (Method method : this.getClass().getDeclaredMethods()) {
+                if (method.getReturnType() == event.getClass()) {
+                    this.lastEvent = event;
+                    BusProvider.getInstance().post(method.invoke(this));
+                }
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public class LocalBinder extends Binder{
-        public RemoteWebSocketService getService(){
+    public class LocalBinder extends Binder {
+        public RemoteWebSocketService getService() {
             return RemoteWebSocketService.this;
         }
+    }
+
+    @Subscribe
+    public void onEvent(ConnectEvent event) {
+        Log.d("new_event", event.toString());
+        webSocketHandler.sendEvent(event);
+    }
+
+    @Subscribe
+    public void onEvent(NavigationEvent event) {
+        Log.d("new_event", event.toString());
+        webSocketHandler.sendEvent(event);
+    }
+
+    @Produce
+    public PlayBackDeviceSyncEvent playBackDeviceSyncEventReceived() {
+        return (PlayBackDeviceSyncEvent) lastEvent;
     }
 }

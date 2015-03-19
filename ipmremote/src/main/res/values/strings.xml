@@ -4,5 +4,8 @@
     <string name="app_name">IPM Remote</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string-array name="drawer_items">
+        <item>Playback Devices</item>
+        <item>Settings</item>
+    </string-array>
 </resources>
