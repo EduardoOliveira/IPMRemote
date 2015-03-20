@@ -1,9 +1,8 @@
-package pt.iscte.ipm.mediacenter.remote.core.main;
+package pt.iscte.ipm.mediacenter.remote.core.views.main;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
@@ -19,9 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.squareup.otto.Subscribe;
+import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
-import pt.iscte.ipm.mediacenter.remote.core.settings.SettingsActivity;
+import pt.iscte.ipm.mediacenter.remote.core.logic.PlayBackDeviceManager;
+import pt.iscte.ipm.mediacenter.remote.core.views.settings.SettingsActivity;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.RemoteWebSocketService;
+import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
-
+    private boolean isKeyboardOpen=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +49,11 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
-        // Check whether the activity is using the layout version with
-        // the fragment_container FrameLayout. If so, we must add the first fragment
         if (findViewById(R.id.fragment_container) != null) {
 
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
             if (savedInstanceState != null) {
                 return;
             }
-            //replaceFragment(new MainFragment());
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -71,7 +66,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
@@ -83,7 +77,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -92,16 +85,18 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.search){
-            Log.d("bla","wqeqewqweqwe");
-            ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            if(isKeyboardOpen){
+                closeKeyboard();
+            }else{
+                ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
+            isKeyboardOpen = !isKeyboardOpen;
             return true;
         }
 
-        // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,17 +120,14 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        int keyaction = event.getAction();
+        int keyAction = event.getAction();
 
-        if(keyaction == KeyEvent.ACTION_UP)
+        if(keyAction == KeyEvent.ACTION_UP)
         {
             int keyCode = event.getKeyCode();
             if(keyCode == KeyEvent.KEYCODE_ENTER){
                 Log.d("qwe", "ENTER");
-                EditText myEditText = (EditText) findViewById(R.id.keyBoardHack);
-                InputMethodManager imm = (InputMethodManager)getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
+                closeKeyboard();
             }
             int keyUnicode = event.getUnicodeChar(event.getMetaState() );
             char character = (char) keyUnicode;
@@ -146,21 +138,31 @@ public class MainActivity extends ActionBarActivity {
         return super.dispatchKeyEvent(event);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle("Menu");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
 
@@ -179,11 +181,11 @@ public class MainActivity extends ActionBarActivity {
 
                 switch (position) {
                     case 0:
+                        replaceFragment(new PlayBackDevicesListFragment());
                         break;
                     case 1:
                         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivity(intent);
-                        //replaceFragment(new PrefsFragment());
                         break;
                 }
                 mDrawerLayout.closeDrawers();
@@ -196,5 +198,17 @@ public class MainActivity extends ActionBarActivity {
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void closeKeyboard(){
+        EditText myEditText = (EditText) findViewById(R.id.keyBoardHack);
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
+    }
+
+    @Subscribe
+    public void onPlayBackDeviceSync(PlayBackDeviceSyncEvent playBackDeviceSyncEvent){
+        Log.d("", "Synced");
+        PlayBackDeviceManager.getInstance().setPlayBackDevices(playBackDeviceSyncEvent.getPlayBackDevices());
     }
 }

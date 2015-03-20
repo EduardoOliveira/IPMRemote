@@ -7,6 +7,10 @@ public class PlayBackDeviceSelectionEvent extends Event {
     private static final String HANDLER = "pt.iscte.ipm.mediacenter.remote.handling.PlayBackDeviceSelectionEventHandler";
     private PlayBackDevice selectedPlayBackDevice;
 
+    public PlayBackDeviceSelectionEvent() {
+        super(HANDLER);
+    }
+
     public PlayBackDeviceSelectionEvent(PlayBackDevice selectedPlayBackDevice) {
         super(HANDLER);
         this.selectedPlayBackDevice = selectedPlayBackDevice;

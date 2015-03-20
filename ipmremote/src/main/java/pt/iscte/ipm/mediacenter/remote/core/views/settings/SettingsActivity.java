@@ -1,4 +1,4 @@
-package pt.iscte.ipm.mediacenter.remote.core.settings;
+package pt.iscte.ipm.mediacenter.remote.core.views.settings;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,7 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import pt.iscte.ipm.mediacenter.remote.R;
-import pt.iscte.ipm.mediacenter.remote.core.settings.PrefsFragment;
+import pt.iscte.ipm.mediacenter.remote.core.views.settings.PrefsFragment;
 
 public class SettingsActivity extends ActionBarActivity {
 

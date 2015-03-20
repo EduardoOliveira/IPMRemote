@@ -14,6 +14,7 @@ import pt.iscte.ipm.mediacenter.core.events.ConnectEvent;
 import pt.iscte.ipm.mediacenter.core.events.Event;
 import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
+import pt.iscte.ipm.mediacenter.events.remote.PlayBackDeviceSelectionEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 import java.lang.reflect.InvocationTargetException;
@@ -84,8 +85,15 @@ public class RemoteWebSocketService extends Service {
         webSocketHandler.sendEvent(event);
     }
 
+    @Subscribe
+    public void onEvent(PlayBackDeviceSelectionEvent event){
+        Log.d("new_event",event.toString());
+        webSocketHandler.sendEvent(event);
+    }
+
     @Produce
     public PlayBackDeviceSyncEvent playBackDeviceSyncEventReceived() {
+        Log.d("wqe", "playBackDeviceSyncEventReceived");
         return (PlayBackDeviceSyncEvent) lastEvent;
     }
 }

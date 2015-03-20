@@ -1,4 +1,4 @@
-package pt.iscte.ipm.mediacenter.remote.core.settings;
+package pt.iscte.ipm.mediacenter.remote.core.views.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

@@ -1,4 +1,4 @@
-package pt.iscte.ipm.mediacenter.remote.core.main;
+package pt.iscte.ipm.mediacenter.remote.core.views.main;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -92,9 +92,4 @@ public class ControlFragment extends Fragment {
         return new NavigationEvent(lastKeyEvent);
     }
 
-    @Subscribe
-    public void onPlayBackDeviceSync(PlayBackDeviceSyncEvent playBackDeviceSyncEvent){
-        Log.d("qwe",playBackDeviceSyncEvent.toString());
-        //BusProvider.getInstance().post();
-    }
 }
