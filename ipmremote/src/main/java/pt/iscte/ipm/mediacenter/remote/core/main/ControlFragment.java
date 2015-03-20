@@ -1,4 +1,4 @@
-package pt.iscte.ipm.mediacenter.remote.fragments;
+package pt.iscte.ipm.mediacenter.remote.core.main;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,12 +11,11 @@ import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
-import pt.iscte.ipm.mediacenter.events.remote.PlayBackDeviceSelectionEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 
-public class MainFragment extends Fragment {
+public class ControlFragment extends Fragment {
 
 
     private View view;
@@ -26,7 +25,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_layout, container, false);
+        view = inflater.inflate(R.layout.control_layout, container, false);
         Button leftButton = (Button) view.findViewById(R.id.left_button);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
