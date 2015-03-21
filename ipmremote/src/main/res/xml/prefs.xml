@@ -7,4 +7,9 @@
             android:title="@string/server_location_title"
             android:summary="@string/server_location_summary"
             android:inputType="text"/>
+    <EditTextPreference
+            android:key="device_name"
+            android:title="@string/device_name"
+            android:summary="@string/device_name_summary"
+            android:inputType="text"/>
 </PreferenceScreen>

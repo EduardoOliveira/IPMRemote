@@ -29,9 +29,9 @@ public class RemoteWebSocketService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        webSocketHandler = new WebSocketHandler(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String location = sharedPreferences.getString("server_location","");
+        webSocketHandler = new WebSocketHandler(this,sharedPreferences.getString("device_name",android.os.Build.MODEL));
         AsyncHttpClient.getDefaultInstance().websocket("ws://"+location+"/websocket", null, webSocketHandler);
         BusProvider.getInstance().register(this);
     }

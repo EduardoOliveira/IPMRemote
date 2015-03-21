@@ -12,6 +12,8 @@
     <string name="server_location_summary">Location of the Icarus server</string>
     <string name="server_location_title">Server Location</string>
     <string name="search_bar_title">Search</string>
+    <string name="device_name">Device name</string>
+    <string name="device_name_summary">Who Am I</string>
 
     <string-array name="drawer_items">
         <item>Playback Devices</item>

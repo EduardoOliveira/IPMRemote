@@ -14,11 +14,13 @@ import java.io.IOException;
 public class WebSocketHandler implements WebSocket.StringCallback, AsyncHttpClient.WebSocketConnectCallback {
     private static final String CONNECTION_HANDLER = "pt.iscte.ipm.mediacenter.remote.handling.ConnectEventHandler";
     private final RemoteWebSocketService remoteWebSocketService;
+    private final String deviceName;
     private WebSocket webSocket;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public WebSocketHandler(RemoteWebSocketService remoteWebSocketService) {
+    public WebSocketHandler(RemoteWebSocketService remoteWebSocketService,String deviceName) {
         this.remoteWebSocketService = remoteWebSocketService;
+        this.deviceName = deviceName;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class WebSocketHandler implements WebSocket.StringCallback, AsyncHttpClie
         }
         this.webSocket = webSocket;
         webSocket.setStringCallback(this);
-        webSocket.send(String.valueOf(new EventOutgoingWrapper(new ConnectEvent("Android1", CONNECTION_HANDLER))));
+        webSocket.send(String.valueOf(new EventOutgoingWrapper(new ConnectEvent(this.deviceName, CONNECTION_HANDLER))));
     }
 
     @Override

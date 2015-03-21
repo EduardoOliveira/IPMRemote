@@ -1,6 +1,5 @@
 package pt.iscte.ipm.mediacenter.remote.core.logic;
 
-import android.util.Log;
 import pt.iscte.ipm.mediacenter.pojos.PlayBackDevice;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class PlayBackDeviceManager {
 
     public void setPlayBackDevices(List<PlayBackDevice> playBackDevices) {
         this.playBackDevices = playBackDevices;
-        Log.d("device size", this.playBackDevices.size() + "");
     }
 
     public void setSelected(int selected) {
