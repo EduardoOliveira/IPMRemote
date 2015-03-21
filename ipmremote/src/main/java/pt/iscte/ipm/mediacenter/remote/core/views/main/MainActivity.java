@@ -209,6 +209,15 @@ public class MainActivity extends ActionBarActivity {
     @Subscribe
     public void onPlayBackDeviceSync(PlayBackDeviceSyncEvent playBackDeviceSyncEvent){
         Log.d("", "Synced");
-        PlayBackDeviceManager.getInstance().setPlayBackDevices(playBackDeviceSyncEvent.getPlayBackDevices());
+        PlayBackDeviceManager playBackDeviceManager = PlayBackDeviceManager.getInstance();
+        playBackDeviceManager.setPlayBackDevices(playBackDeviceSyncEvent.getPlayBackDevices());
+        if(playBackDeviceManager.getPlayBackDevices().size()>0 && playBackDeviceManager.getSelected()==null){
+            if(playBackDeviceManager.getPlayBackDevices().size()==1){//TODO: Refine code
+                playBackDeviceManager.setSelected(0);
+                BusProvider.getInstance().post(PlayBackDevicesListFragment.selectPlayBackDevice());
+            }else{
+                replaceFragment(new PlayBackDevicesListFragment());
+            }
+        }
     }
 }

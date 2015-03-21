@@ -31,7 +31,7 @@ public class PlayBackDevicesListFragment  extends ListFragment {
     }
 
     @Produce
-    public PlayBackDeviceSelectionEvent selectPlayBackDevice(){
+    public static PlayBackDeviceSelectionEvent selectPlayBackDevice(){
         return new PlayBackDeviceSelectionEvent(PlayBackDeviceManager.getInstance().getSelected());
     }
 }
