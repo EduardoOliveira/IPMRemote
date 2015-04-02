@@ -12,8 +12,13 @@ public class PlayBackDeviceSyncEvent extends Event {
         super(null);
     }
 
-    public PlayBackDeviceSyncEvent(String handler, List<PlayBackDevice> playBackDevices) {
-        super(handler);
+    public PlayBackDeviceSyncEvent(String uuid, List<PlayBackDevice> playBackDevices) {
+        super(uuid);
+        this.playBackDevices = playBackDevices;
+    }
+
+    public PlayBackDeviceSyncEvent(String uuid, String handler, List<PlayBackDevice> playBackDevices) {
+        super(uuid, handler);
         this.playBackDevices = playBackDevices;
     }
 

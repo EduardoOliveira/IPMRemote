@@ -7,9 +7,10 @@ import android.widget.ListView;
 import com.squareup.otto.Produce;
 import pt.iscte.ipm.mediacenter.events.remote.PlayBackDeviceSelectionEvent;
 import pt.iscte.ipm.mediacenter.remote.core.logic.PlayBackDeviceManager;
+import pt.iscte.ipm.mediacenter.remote.core.logic.SessionManager;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
-public class PlayBackDevicesListFragment  extends ListFragment {
+public class PlayBackDevicesListFragment extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class PlayBackDevicesListFragment  extends ListFragment {
     }
 
     @Produce
-    public static PlayBackDeviceSelectionEvent selectPlayBackDevice(){
-        return new PlayBackDeviceSelectionEvent(PlayBackDeviceManager.getInstance().getSelected());
+    public static PlayBackDeviceSelectionEvent selectPlayBackDevice() {
+        return new PlayBackDeviceSelectionEvent(SessionManager.getInstance().getUuid().toString(), PlayBackDeviceManager.getInstance().getSelected());
     }
 }

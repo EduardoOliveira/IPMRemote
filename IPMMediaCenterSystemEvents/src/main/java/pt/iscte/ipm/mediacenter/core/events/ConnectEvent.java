@@ -9,11 +9,11 @@ public class ConnectEvent extends Event {
     }
 
     public ConnectEvent(String handler) {
-        super(handler);
+        super(null,handler);
     }
 
     public ConnectEvent(String deviceName, String handler) {
-        super(handler);
+        super(null,handler);
         this.deviceName = deviceName;
     }
 

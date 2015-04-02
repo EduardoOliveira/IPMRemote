@@ -12,6 +12,7 @@ import com.squareup.otto.Subscribe;
 import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
+import pt.iscte.ipm.mediacenter.remote.core.logic.SessionManager;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 
@@ -89,7 +90,7 @@ public class ControlFragment extends Fragment {
 
     @Produce
     public NavigationEvent fireKeyPress() {
-        return new NavigationEvent(lastKeyEvent);
+        return new NavigationEvent(SessionManager.getInstance().getUuid().toString(),lastKeyEvent);
     }
 
 }

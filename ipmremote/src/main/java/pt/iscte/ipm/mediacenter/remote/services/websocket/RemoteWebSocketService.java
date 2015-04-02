@@ -11,6 +11,7 @@ import com.koushikdutta.async.http.AsyncHttpClient;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 import pt.iscte.ipm.mediacenter.core.events.ConnectEvent;
+import pt.iscte.ipm.mediacenter.core.events.ConnectSyncEvent;
 import pt.iscte.ipm.mediacenter.core.events.Event;
 import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
@@ -30,9 +31,9 @@ public class RemoteWebSocketService extends Service {
     public void onCreate() {
         super.onCreate();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String location = sharedPreferences.getString("server_location","");
-        webSocketHandler = new WebSocketHandler(this,sharedPreferences.getString("device_name",android.os.Build.MODEL));
-        AsyncHttpClient.getDefaultInstance().websocket("ws://"+location+"/websocket", null, webSocketHandler);
+        String location = sharedPreferences.getString("server_location", "");
+        webSocketHandler = new WebSocketHandler(this, sharedPreferences.getString("device_name", android.os.Build.MODEL));
+        AsyncHttpClient.getDefaultInstance().websocket("ws://" + location + "/websocket", null, webSocketHandler);
         BusProvider.getInstance().register(this);
     }
 
@@ -75,25 +76,31 @@ public class RemoteWebSocketService extends Service {
 
     @Subscribe
     public void onEvent(ConnectEvent event) {
-        Log.d("new_event", event.toString());
+        Log.d("sent", event.toString());
         webSocketHandler.sendEvent(event);
     }
 
     @Subscribe
     public void onEvent(NavigationEvent event) {
-        Log.d("new_event", event.toString());
+        Log.d("sent", event.toString());
         webSocketHandler.sendEvent(event);
     }
 
     @Subscribe
-    public void onEvent(PlayBackDeviceSelectionEvent event){
-        Log.d("new_event",event.toString());
+    public void onEvent(PlayBackDeviceSelectionEvent event) {
+        Log.d("sent", event.toString());
         webSocketHandler.sendEvent(event);
     }
 
     @Produce
     public PlayBackDeviceSyncEvent playBackDeviceSyncEventReceived() {
-        Log.d("wqe", "playBackDeviceSyncEventReceived");
+        Log.d("received", "playBackDeviceSyncEventReceived");
         return (PlayBackDeviceSyncEvent) lastEvent;
+    }
+
+    @Produce
+    public ConnectSyncEvent connectSyncEventReceived() {
+        Log.d("received", "connectSyncEventReceived");
+        return (ConnectSyncEvent) lastEvent;
     }
 }

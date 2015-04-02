@@ -11,10 +11,10 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".core.views.main.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +26,8 @@
         <activity
             android:name=".core.views.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".core.views.main.MainActivity" >
+            android:parentActivityName=".core.views.main.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.views.main.MainActivity" />

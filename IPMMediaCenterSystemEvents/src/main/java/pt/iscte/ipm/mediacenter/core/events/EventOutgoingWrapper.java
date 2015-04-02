@@ -1,7 +1,5 @@
 package pt.iscte.ipm.mediacenter.core.events;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

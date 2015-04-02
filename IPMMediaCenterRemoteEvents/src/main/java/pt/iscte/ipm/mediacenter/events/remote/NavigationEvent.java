@@ -7,16 +7,16 @@ public class NavigationEvent extends Event {
     private String eventCode;
 
     public NavigationEvent() {
-        super(HANDLER);
+        super(null,HANDLER);
     }
 
-    public NavigationEvent(String eventCode) {
-        super(HANDLER);
+    public NavigationEvent(String uuid,String eventCode) {
+        super(uuid,HANDLER);
         this.eventCode = eventCode;
     }
 
-    public NavigationEvent(String handler, String eventCode) {
-        super(handler);
+    public NavigationEvent(String uuid,String handler, String eventCode) {
+        super(uuid,handler);
         this.eventCode = eventCode;
     }
 

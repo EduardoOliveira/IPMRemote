@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 public class PlayBackDevice {
     private String name;
     private String currentlyPlaying;
-    private String address;
+    private String uuid;
 
     public PlayBackDevice() {
 
@@ -16,11 +16,12 @@ public class PlayBackDevice {
         this.currentlyPlaying = currentlyPlaying;
     }
 
-    public PlayBackDevice(String name, String currentlyPlaying, String address) {
+    public PlayBackDevice(String name, String currentlyPlaying, String uuid) {
         this.name = name;
         this.currentlyPlaying = currentlyPlaying;
-        this.address = address;
+        this.uuid = uuid;
     }
+
 
     public String getName() {
         return name;
@@ -38,11 +39,11 @@ public class PlayBackDevice {
         this.currentlyPlaying = currentlyPlaying;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

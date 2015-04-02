@@ -3,16 +3,16 @@ package pt.iscte.ipm.mediacenter.pojos;
 public class SlaveDevice {
     private String masterAddress;
     private String name;
-    private String address;
+    private String uuid;
 
 
     public SlaveDevice() {
     }
 
-    public SlaveDevice(String masterAddress, String name, String address) {
+    public SlaveDevice(String masterAddress, String name,String uuid) {
         this.masterAddress = masterAddress;
         this.name = name;
-        this.address = address;
+        this.uuid = uuid;
     }
 
     public String getMasterAddress() {
@@ -31,11 +31,11 @@ public class SlaveDevice {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

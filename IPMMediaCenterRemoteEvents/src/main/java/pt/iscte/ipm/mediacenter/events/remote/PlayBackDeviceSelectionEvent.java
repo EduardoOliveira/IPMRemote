@@ -12,7 +12,17 @@ public class PlayBackDeviceSelectionEvent extends Event {
     }
 
     public PlayBackDeviceSelectionEvent(PlayBackDevice selectedPlayBackDevice) {
-        super(HANDLER);
+        super(null, HANDLER);
+        this.selectedPlayBackDevice = selectedPlayBackDevice;
+    }
+
+    public PlayBackDeviceSelectionEvent(String uuid, PlayBackDevice selectedPlayBackDevice) {
+        super(uuid, HANDLER);
+        this.selectedPlayBackDevice = selectedPlayBackDevice;
+    }
+
+    public PlayBackDeviceSelectionEvent(String uuid, String handler, PlayBackDevice selectedPlayBackDevice) {
+        super(uuid, handler);
         this.selectedPlayBackDevice = selectedPlayBackDevice;
     }
 
