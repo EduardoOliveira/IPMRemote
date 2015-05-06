@@ -13,11 +13,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.*;
 import com.squareup.otto.Subscribe;
+import pt.iscte.ipm.mediacenter.core.events.DisconnectedFromPlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
 import pt.iscte.ipm.mediacenter.remote.core.logic.PlayBackDeviceManager;
@@ -32,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     private boolean isKeyboardOpen=false;
+    private String toastString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,5 +218,25 @@ public class MainActivity extends ActionBarActivity {
                 replaceFragment(new PlayBackDevicesListFragment());
             }
         }
+    }
+
+    @Subscribe
+    public void onDisconnectedFromPlayBackDeviceSyncEventReceived(DisconnectedFromPlayBackDeviceSyncEvent event){
+        switch (event.getCode()){
+            case DisconnectedFromPlayBackDeviceSyncEvent.Code.KICKED:
+                toastString=getString(R.string.kicked);
+                break;
+            case DisconnectedFromPlayBackDeviceSyncEvent.Code.MASTER_DISCONNECTED:
+                toastString=getString(R.string.masterDisconnected);
+                break;
+            case DisconnectedFromPlayBackDeviceSyncEvent.Code.OTHER:
+                toastString=getString(R.string.other);
+                break;
+        }
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(MainActivity.this, toastString, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

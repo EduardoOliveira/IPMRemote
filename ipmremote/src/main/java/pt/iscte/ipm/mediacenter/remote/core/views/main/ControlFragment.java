@@ -67,13 +67,24 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
+        Button devicesButton = (Button) view.findViewById(R.id.devices_button);
+        devicesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "devices";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+        Button backButton = (Button) view.findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "back";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

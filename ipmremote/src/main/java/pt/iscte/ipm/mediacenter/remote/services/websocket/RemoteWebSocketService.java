@@ -10,10 +10,7 @@ import android.util.Log;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
-import pt.iscte.ipm.mediacenter.core.events.ConnectEvent;
-import pt.iscte.ipm.mediacenter.core.events.ConnectSyncEvent;
-import pt.iscte.ipm.mediacenter.core.events.Event;
-import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
+import pt.iscte.ipm.mediacenter.core.events.*;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.events.remote.PlayBackDeviceSelectionEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
@@ -102,5 +99,11 @@ public class RemoteWebSocketService extends Service {
     public ConnectSyncEvent connectSyncEventReceived() {
         Log.d("received", "connectSyncEventReceived");
         return (ConnectSyncEvent) lastEvent;
+    }
+
+    @Produce
+    public DisconnectedFromPlayBackDeviceSyncEvent disconnectedFromPlayBackDeviceSyncEventReceived() {
+        Log.d("received", "disconnectedFromPlayBackDeviceSyncEventReceived");
+        return (DisconnectedFromPlayBackDeviceSyncEvent) lastEvent;
     }
 }
