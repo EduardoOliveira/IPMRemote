@@ -2,14 +2,11 @@ package pt.iscte.ipm.mediacenter.remote.core.views.main;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import com.squareup.otto.Produce;
-import com.squareup.otto.Subscribe;
-import pt.iscte.ipm.mediacenter.core.events.PlayBackDeviceSyncEvent;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
 import pt.iscte.ipm.mediacenter.remote.core.logic.SessionManager;
@@ -26,8 +23,8 @@ public class ControlFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.control_layout, container, false);
-        Button leftButton = (Button) view.findViewById(R.id.left_button);
+        view = inflater.inflate(R.layout.new_control_layout, container, false);
+        ImageButton leftButton = (ImageButton) view.findViewById(R.id.btn_left);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +32,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button rightButton = (Button) view.findViewById(R.id.right_button);
+        ImageButton rightButton = (ImageButton) view.findViewById(R.id.btn_right);
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +40,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button upButton = (Button) view.findViewById(R.id.up_button);
+        ImageButton upButton = (ImageButton) view.findViewById(R.id.btn_up);
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button downButton = (Button) view.findViewById(R.id.down_button);
+        ImageButton downButton = (ImageButton) view.findViewById(R.id.btn_down);
         downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +56,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button okButton = (Button) view.findViewById(R.id.ok_button);
+        ImageButton okButton = (ImageButton) view.findViewById(R.id.btn_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +64,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button devicesButton = (Button) view.findViewById(R.id.devices_button);
+        ImageButton devicesButton = (ImageButton) view.findViewById(R.id.btn_devices);
         devicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +72,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        Button backButton = (Button) view.findViewById(R.id.back_button);
+        ImageButton backButton = (ImageButton) view.findViewById(R.id.btn_back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
