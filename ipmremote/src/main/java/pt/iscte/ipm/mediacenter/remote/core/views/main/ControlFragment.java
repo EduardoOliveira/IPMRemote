@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import com.squareup.otto.Produce;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
+import pt.iscte.ipm.mediacenter.events.remote.VolumeChangeEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
 import pt.iscte.ipm.mediacenter.remote.core.logic.SessionManager;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
@@ -20,9 +22,9 @@ import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 public class ControlFragment extends Fragment {
 
-
+    public int volume;
     private String lastKeyEvent="";
-
+    public String TAG = this.getClass().toString();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,16 +131,18 @@ public class ControlFragment extends Fragment {
         SeekBar volumeControl = (SeekBar) view.findViewById(R.id.volume);
 
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChanged = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
+                volume = progress;
+                Log.d(TAG,progress + "");
+                BusProvider.getInstance().post(fireVolumeChange());
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
         return view;
@@ -159,6 +163,11 @@ public class ControlFragment extends Fragment {
     @Produce
     public NavigationEvent fireKeyPress() {
         return new NavigationEvent(SessionManager.getInstance().getUuid().toString(),lastKeyEvent);
+    }
+
+    @Produce
+    public VolumeChangeEvent fireVolumeChange(){
+        return new VolumeChangeEvent(SessionManager.getInstance().getUuid().toString(),volume);
     }
 
 }

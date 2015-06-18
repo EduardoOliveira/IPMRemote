@@ -13,6 +13,7 @@ import com.squareup.otto.Subscribe;
 import pt.iscte.ipm.mediacenter.core.events.*;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.events.remote.PlayBackDeviceSelectionEvent;
+import pt.iscte.ipm.mediacenter.events.remote.VolumeChangeEvent;
 import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +24,7 @@ public class RemoteWebSocketService extends Service {
     private WebSocketHandler webSocketHandler;
     private Event lastEvent;
     private SharedPreferences sharedPreferences;
-
+    public static String SendTAG = "Send";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -86,6 +87,11 @@ public class RemoteWebSocketService extends Service {
     @Subscribe
     public void onEvent(PlayBackDeviceSelectionEvent event) {
         Log.d("sent", event.toString());
+        webSocketHandler.sendEvent(event);
+    }
+    @Subscribe
+    public void onEvent(VolumeChangeEvent event){
+        Log.d(SendTAG,event.toString());
         webSocketHandler.sendEvent(event);
     }
 
