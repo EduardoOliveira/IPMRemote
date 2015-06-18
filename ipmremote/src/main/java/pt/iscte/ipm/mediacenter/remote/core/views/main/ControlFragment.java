@@ -1,11 +1,16 @@
 package pt.iscte.ipm.mediacenter.remote.core.views.main;
 
 import android.app.Fragment;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.Toast;
 import com.squareup.otto.Produce;
 import pt.iscte.ipm.mediacenter.events.remote.NavigationEvent;
 import pt.iscte.ipm.mediacenter.remote.R;
@@ -16,14 +21,13 @@ import pt.iscte.ipm.mediacenter.remote.services.websocket.provider.BusProvider;
 public class ControlFragment extends Fragment {
 
 
-    private View view;
     private String lastKeyEvent="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.new_control_layout, container, false);
+        View view = inflater.inflate(R.layout.control_layout, container, false);
         ImageButton leftButton = (ImageButton) view.findViewById(R.id.btn_left);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +60,7 @@ public class ControlFragment extends Fragment {
                 BusProvider.getInstance().post(fireKeyPress());
             }
         });
-        ImageButton okButton = (ImageButton) view.findViewById(R.id.btn_ok);
+        Button okButton = (Button) view.findViewById(R.id.btn_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +85,62 @@ public class ControlFragment extends Fragment {
             }
         });
 
+        ImageButton rewindButton = (ImageButton) view.findViewById(R.id.btn_rewind);
+        rewindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "rewind";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+        ImageButton playButton = (ImageButton) view.findViewById(R.id.btn_play);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "play";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+        ImageButton forwardButton = (ImageButton) view.findViewById(R.id.btn_forward);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "forward";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+        ImageButton homeButton = (ImageButton) view.findViewById(R.id.btn_home);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "forward";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+        ImageButton infoButton = (ImageButton) view.findViewById(R.id.btn_info);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastKeyEvent = "forward";
+                BusProvider.getInstance().post(fireKeyPress());
+            }
+        });
+
+        SeekBar volumeControl = (SeekBar) view.findViewById(R.id.volume);
+
+        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChanged = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                progressChanged = progress;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
         return view;
     }
 

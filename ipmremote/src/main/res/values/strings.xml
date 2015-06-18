@@ -17,6 +17,7 @@
     <string name="kicked">You have been kicked from the session</string>
     <string name="masterDisconnected">The session has gone offline</string>
     <string name="other">Icarus has fallen</string>
+    <string name="ok_btn">OK</string>
 
     <string-array name="drawer_items">
         <item>Playback Devices</item>

@@ -11,58 +11,101 @@
             android:visibility="gone"/>
     <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:shrinkColumns="*"
             android:stretchColumns="*">
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" android:baselineAligned="false" android:clickable="false"
                 >
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Back"
-                    android:id="@+id/back_button"/>
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Up"
-                    android:id="@+id/up_button"/>
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Devices"
-                    android:id="@+id/devices_button"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_home" android:src="@drawable/home4" android:scaleType="centerInside"
+                    />
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_up" android:src="@drawable/up" android:scaleType="centerInside"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_info" android:src="@drawable/info24" android:scaleType="centerInside"/>
         </TableRow>
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_left" android:src="@drawable/left" android:scaleType="centerInside"/>
             <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Left"
-                    android:id="@+id/left_button"/>
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="OK"
-                    android:id="@+id/ok_button"/>
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Right"
-                    android:id="@+id/right_button"/>
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:text="@string/ok_btn"
+                    android:id="@+id/btn_ok" android:textColor="@android:color/black"
+                    android:textSize="30sp"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_right" android:src="@drawable/right" android:scaleType="centerInside"/>
         </TableRow>
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Down"
-                    android:id="@+id/down_button"
-                    android:layout_column="1"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_back" android:layout_column="0" android:src="@drawable/back57"
+                    android:scaleType="centerInside"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_down"
+                    android:layout_column="1" android:src="@drawable/down" android:scaleType="centerInside"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_devices" android:layout_column="2" android:src="@drawable/cellphone5"
+                    android:scaleType="centerInside"/>
         </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:paddingTop="10dp" android:paddingBottom="10dp">
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/imageView" android:layout_column="0" android:src="@drawable/speaker128"/>
+            <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/volume" android:layout_column="1" android:layout_span="2"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_rewind" android:layout_column="0" android:src="@drawable/rewind28"
+                    android:scaleType="centerInside"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_play" android:layout_column="1" android:src="@drawable/play87"
+                    android:scaleType="centerInside"/>
+            <ImageButton
+                    android:layout_width="@dimen/abc_action_button_min_width_material"
+                    android:layout_height="@dimen/control_button_height"
+                    android:id="@+id/btn_forward" android:layout_column="2" android:src="@drawable/fast19"
+                    android:scaleType="centerInside"/>
+        </TableRow>
+    </TableLayout>
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
     </TableLayout>
 
 </LinearLayout>
